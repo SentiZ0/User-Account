@@ -1,0 +1,67 @@
+﻿@page
+@model User_Account.Pages.People.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Ostatnio szukane</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Person[0].FirstName)*/*@
+                Imię i nazwisko
+            </th>
+@*            <th>
+                @Html.DisplayNameFor(model => model.Person[0].LastName)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Person[0].BirthYear)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Person[0].DataUpdateTime)*@
+                Data wprowadzenia danych
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Person[0].LeapYear)*@
+                Czy rok urodzenia przestępny?
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Person)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataUpdateTime)
+                </td>
+                <td>
+                    @item.BirthYear - @(item.LeapYear ? "Rok przestepny" : "To nie jest rok przestepny")
+                </td>
+                @if (item.UserName == @Model.UserName)
+                {
+                    <td>
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+
+            </tr>
+        }
+    </tbody>
+</table>
